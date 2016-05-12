@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Message Client</title>
+        <script src="libs/moment.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.1/Chart.min.js"></script>
+        <script src="js/messageGraph.js"></script>
+        <script src="js/messageForm.js"></script>
+    </head>
+    <body>
+
+        <div class="container" role="main">
+            <h1>Movements <small>Dashboard</small></h1>
+            <div class="row">
+
+                <!-- Form Part -->
+                <div class="col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Send a message</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="email">Message Text:</label>
+                                <input type="text" class="form-control" id="message_text">
+                            </div>
+                            <button type="submit" id="button_send" class="btn btn-default">Send</button>
+                            <p id="txt_response_from_server"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graph Part -->
+                <div class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Messages Frequency</div>
+                        <div class="panel-body">
+                            <img id="gif_loading" src="img/default.gif" class="img-responsive center-block" >
+                            <canvas id="myChart" width="200" height="250"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            loadGraph();
+        </script>
+    </body>
+</html>
