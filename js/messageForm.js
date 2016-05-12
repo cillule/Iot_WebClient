@@ -1,21 +1,33 @@
-$("#button_send").click(function () {
+$(document).ready(function () {
+    $("#button_send").click(function () {
 
-    //get value for text field
-    var messageToSend = $('#message_text').val();
-    //prepare date to JSON format
-    var jsonDataToSend = {message: messageToSend};
+        //get value for text field
+        var messageToSend = $('#message_text').val();
 
-    //make POST request 
-    var jqxhr = $.post("http://localhost/iot_back/index.php/api/message", jsonDataToSend, function () {
-    })
-            .done(function (data) {
+        console.log(messageToSend);
+        //prepare date to JSON format
+        var jsonDataToSend = {message: messageToSend};
 
-                $("p").text(data);
+        //make POST request 
+        var jqxhr = $.post("http://localhost/iot_back/index.php/api/message", jsonDataToSend, function () {
+        })
+                .done(function (data) {
+                    console.log(data);
+                    var status = data.status;
 
-            })
-            .fail(function () {
-                $("p").text("An error was occured");
-            })
-            .always(function () {
-            });
+                    if (status === true) {
+                        $("p").text("Message created and sent to Arduino").css('color', 'green');
+                    } else {
+                        $("p").text("Message created but no sent to Arduino").css('color', 'orange');;
+                    }
+
+                    //reload graph
+                    loadGraph();
+                })
+                .fail(function () {
+                    $("p").text("An error was occured");
+                })
+                .always(function () {
+                });
+    });
 });

@@ -1,11 +1,11 @@
-var ctx = document.getElementById("myChart");
 
-function myFunction(dataToParse) {
-    console.log(dataToParse);
+function formatData(dataToParse) {
+    //console.log(dataToParse);
     var tabIntermediate = [];
     dataToParse.forEach(function (dateObject)
     {
         var date = dateObject["time"];
+        //use library moment.js for data format
         var formattedDate = moment(date).format('YYYY MM DD');
         if (formattedDate !== 'Invalid date') {
             if (tabIntermediate[formattedDate] == null) {
@@ -19,7 +19,7 @@ function myFunction(dataToParse) {
     var dataToReturn = [];
 
     for (var key in tabIntermediate) {
-        console.log("key " + key + " has value " + tabIntermediate[key]);
+        //console.log("key " + key + " has value " + tabIntermediate[key]);
         dataToReturn.push({
             "x": key,
             "y": tabIntermediate[key]
@@ -30,12 +30,11 @@ function myFunction(dataToParse) {
 
 }
 
-
 function loadGraph() {
     var jqxhr = $.getJSON("http://localhost/iot_back/index.php/api/messages", function (data) {
 
         //get date from HTTP GET Request
-        var parsedData = myFunction(data);
+        var parsedData = formatData(data);
 
         //create a config for a chart
         var config = {
@@ -85,26 +84,17 @@ function loadGraph() {
             console.log("Canvas onclick ".activePoints);
             // => activePoints is an array of points on the canvas that are at the same position as the click event.
         };
-
-
     })
             .done(function () {
-                console.log("second success");
-
             })
             .fail(function () {
-                console.log("error");
             })
             .always(function () {
-                console.log("complete");
                 $("#gif_loading").hide();
-
             });
 
 
-// Set another completion function for the request above
+    // Set another completion function for the request above
     jqxhr.complete(function () {
-        console.log("second complete");
-
     });
 }
